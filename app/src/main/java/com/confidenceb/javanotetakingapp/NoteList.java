@@ -38,7 +38,7 @@ public class NoteList extends AppCompatActivity {
     }
 
     private void initializeContentToDisplay() {
-        ListView notesList = findViewById(R.id.notesList);
+        final ListView notesList = findViewById(R.id.notesList);
         List<NoteInfo> notes = DataManager.getInstance().getNotes();
         ArrayAdapter<NoteInfo> notesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, notes);
         notesList.setAdapter(notesAdapter);
@@ -46,7 +46,10 @@ public class NoteList extends AppCompatActivity {
         notesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                
+                Intent intent = new Intent(NoteList.this, MainActivity.class);
+                NoteInfo note = (NoteInfo) notesList.getItemAtPosition(position);
+                intent.putExtra(MainActivity.NOTE_INFO, note);
+                startActivity(intent);
             }
         });
     }
