@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -48,7 +47,7 @@ public class NoteList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(NoteList.this, MainActivity.class);
                 NoteInfo note = (NoteInfo) notesList.getItemAtPosition(position);
-                intent.putExtra(MainActivity.NOTE_INFO, note);
+                intent.putExtra(MainActivity.NOTE_POSITION, note);
                 startActivity(intent);
             }
         });
