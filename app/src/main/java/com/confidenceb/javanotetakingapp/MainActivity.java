@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -60,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
         isNewNote = position == POSITION_NOT_SET;
         if(!isNewNote)
             note = DataManager.getInstance().getNotes().get(position);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
     }
 
     @Override
