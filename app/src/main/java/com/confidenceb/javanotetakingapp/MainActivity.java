@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinner;
     private EditText noteTitle;
     private EditText noteBody;
+    private int newNotePosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
         displayNote(spinner, noteTitle, noteBody);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveNote();
+    }
+
+    private void saveNote() {
+        note.setCourse((CourseInfo) spinner.getSelectedItem());
+        note.setTitle(noteTitle.getText().toString());
+        note.setText(noteBody.getText().toString());
+    }
+
     private void displayNote(Spinner spinner, EditText noteTitle, EditText noteBody) {
         List<CourseInfo> courses = DataManager.getInstance().getCourses();
         int courseIndex = courses.indexOf(note.getCourse());
@@ -60,8 +75,17 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int position = intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET);
         isNewNote = position == POSITION_NOT_SET;
-        if(!isNewNote)
+        if (isNewNote) {
+            createNewNote();
+        } else{
             note = DataManager.getInstance().getNotes().get(position);
+        }
+    }
+
+    private void createNewNote() {
+        DataManager dm = DataManager.getInstance();
+        newNotePosition = dm.createNewNote();
+        note = dm.getNotes().get(newNotePosition);
     }
 
     @Override
