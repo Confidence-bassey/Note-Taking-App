@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText noteTitle;
     private EditText noteBody;
     private int newNotePosition;
+    private boolean isCancelClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
         if(id == R.id.action_email){
             sendEmail();
             return true;
+        }else if(id == R.id.cancelSend){
+            isCancelClicked = true;
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

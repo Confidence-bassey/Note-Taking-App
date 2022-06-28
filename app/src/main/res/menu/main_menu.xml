@@ -4,4 +4,7 @@
     <item
         android:id="@+id/action_email"
         android:title="send mail"/>
+    <item
+        android:id="@+id/cancelSend"
+        android:title="cancel" />
 </menu>
