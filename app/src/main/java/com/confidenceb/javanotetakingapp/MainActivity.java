@@ -54,7 +54,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        saveNote();
+        if(isCancelClicked){
+            if(isNewNote)
+            DataManager.getInstance().removeNote(newNotePosition);
+        }else {
+            saveNote();
+        }
     }
 
     private void saveNote() {
