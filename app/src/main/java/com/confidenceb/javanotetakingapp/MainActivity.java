@@ -1,4 +1,4 @@
-package com.confidenceb.javanotetakingapp;
+ package com.confidenceb.javanotetakingapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,8 @@ import android.widget.Spinner;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String TAG = getClass().getSimpleName();
 
     public static final String NOTE_POSITION = "com.confidenceb.javanotetakingapp.NOTE_POSITION";
     public static final int POSITION_NOT_SET = -1;
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if(isCancelClicked){
+            Log.i(TAG, "Cancelling note at position "+newNotePosition);
             if(isNewNote) {
                 DataManager.getInstance().removeNote(newNotePosition);
             }else{
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         }else {
             saveNote();
         }
+        Log.d(TAG, "onPause");
     }
 
     private void storeOriginalNoteValue() {
