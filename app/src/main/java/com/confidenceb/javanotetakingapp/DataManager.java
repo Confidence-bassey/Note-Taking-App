@@ -192,7 +192,13 @@ public class DataManager {
     }
 
     public int createNewNote(CourseInfo course, String noteTitle, String noteText) {
-        return -1;
+        int index = createNewNote();
+        NoteInfo note = getNotes().get(index);
+        note.setCourse(course);
+        note.setTitle(noteTitle);
+        note.setText(noteText);
+
+        return index;
     }
     //endregion
 
