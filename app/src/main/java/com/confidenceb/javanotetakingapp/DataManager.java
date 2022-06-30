@@ -8,7 +8,7 @@ public class DataManager {
     private static DataManager ourInstance = null;
 
     private List<CourseInfo> mCourses = new ArrayList<>();
-    private static List<NoteInfo> mNotes = new ArrayList<>();
+    private List<NoteInfo> mNotes = new ArrayList<>();
 
     public static DataManager getInstance() {
         if(ourInstance == null) {
@@ -37,7 +37,7 @@ public class DataManager {
         return mNotes.size() -1;
     }
 
-    public static int findNote(NoteInfo note) {
+    public int findNote(NoteInfo note) {
         for(int index = 0; index < mNotes.size(); index++) {
             if(note.equals(mNotes.get(index)))
                 return index;
