@@ -40,7 +40,9 @@ public class NewNoteCreationTest {
 
         onView(withId(R.id.fab)).perform(click());
 
+        onView(withId(R.id.spinner)).perform(click());
         onData(allOf(instanceOf(CourseInfo.class), equalTo(course)));
+
         onView(withId(R.id.note_title)).perform(typeText("Test note title"));
         onView(withId(R.id.note_text_body)).perform(typeText("This is the body text of my test note"),
         closeSoftKeyboard());
