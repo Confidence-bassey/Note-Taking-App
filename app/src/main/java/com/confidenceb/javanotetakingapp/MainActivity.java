@@ -3,9 +3,12 @@
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.io.File;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -139,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
         }else if(id == R.id.cancelSend){
             isCancelClicked = true;
             finish();
+        }else if(id == R.id.action_openPdf){
+           openpdFile();
         }
 
         return super.onOptionsItemSelected(item);
@@ -152,6 +158,24 @@ public class MainActivity extends AppCompatActivity {
         intent.setType("message/rfc2822");
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, text);
+        startActivity(intent);
+    }
+
+    private void openPDF() {
+        Log.d(TAG, "openPDF: called");
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        File myPDF = new File(Environment.getExternalStorageDirectory(), ".pdf");
+        Uri uri = FileProvider.getUriForFile(getBaseContext(), BuildConfig.APPLICATION_ID + ".provider", myPDF);
+        Log.d(TAG, "openPDF: intent with uri: " + uri);
+        intent.setDataAndType(uri, "application/pdf");
+        getBaseContext().startActivity(Intent.createChooser(intent, "Open with..."));
+    }
+
+    public void openpdFile(){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setType("application/pdf");
+        new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         startActivity(intent);
     }
 }
