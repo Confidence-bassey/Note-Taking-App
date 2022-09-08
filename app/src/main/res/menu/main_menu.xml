@@ -7,4 +7,7 @@
     <item
         android:id="@+id/cancelSend"
         android:title="cancel" />
+    <item
+        android:id="@+id/action_openPdf"
+        android:title="open pdf"/>
 </menu>

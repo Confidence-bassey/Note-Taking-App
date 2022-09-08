@@ -7,6 +7,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class NoteList extends AppCompatActivity {
 
-    private ArrayAdapter<NoteInfo> notesAdapter;
+    //private ArrayAdapter<NoteInfo> notesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +43,14 @@ public class NoteList extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        notesAdapter.notifyDataSetChanged();
+       // notesAdapter.notifyDataSetChanged();
     }
 
     private void initializeContentToDisplay() {
-        final ListView notesList = findViewById(R.id.notesList);
+       /* final ListView notesList = findViewById(R.id.notesList);
         List<NoteInfo> notes = DataManager.getInstance().getNotes();
-        notesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, notes);
-        notesList.setAdapter(notesAdapter);
+       // notesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, notes);
+       // notesList.setAdapter(notesAdapter);
 
         notesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,6 +60,14 @@ public class NoteList extends AppCompatActivity {
                 intent.putExtra(MainActivity.NOTE_POSITION, position);
                 startActivity(intent);
             }
-        });
+        });   */
+
+        final RecyclerView noteRecyclerV = (RecyclerView)findViewById(R.id.notesList);
+        final LinearLayoutManager notesLayoutM = new LinearLayoutManager(this);
+        noteRecyclerV.setLayoutManager(notesLayoutM);
+
+        List<NoteInfo> notes = DataManager.getInstance().getNotes();
+        final NoteRecyclerAdapter noteRecyclerAdapter = new NoteRecyclerAdapter(this,notes);
+        noteRecyclerV.setAdapter(noteRecyclerAdapter);
     }
 }
